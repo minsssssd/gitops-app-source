@@ -2,34 +2,34 @@ from flask import Flask
 import os
 import socket
 
-app=Flask(__name__)
+app = Flask(__name__)
 
-VERSION=os.environ.get("APP_VERSION","v1")
-HOSTNAME=socket.gethostname()
+VERSION = os.environ.get("APP_VERSION", "v1")
+HOSTNAME = socket.gethostname()
 
 @app.route("/")
 def home():
-return f"""
+    return f"""
     <html>
       <head>
-        <title>GitOps Demo</title>
+        <title>GitOps Demo Application - Updated</title>
       </head>
       <body>
         <h1>GitOps Demo Application</h1>
-        <p><strong>Version:</strong>{VERSION}</p>
-        <p><strong>Pod Hostname:</strong>{HOSTNAME}</p>
-        <p>This app is running on EKS and deployed by Argo CD.</p>
+        <p><strong>Version:</strong> {VERSION}</p>
+        <p><strong>Pod Hostname:</strong> {HOSTNAME}</p>
+        <p>This app is running on EKS and updated through GitOps pipeline.</p>
       </body>
     </html>
     """
 
 @app.route("/health")
 def health():
-return {
-"status":"ok",
-"version":VERSION,
-"hostname":HOSTNAME
-    },200
+    return {
+        "status": "ok",
+        "version": VERSION,
+        "hostname": HOSTNAME
+    }, 200
 
-if__name__=="__main__":
-app.run(host="0.0.0.0",port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
